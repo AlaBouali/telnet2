@@ -63,9 +63,17 @@ class telnet:
        return None
   except socket.timeout:
    raise Exception("Timed out")
- def execute(self,cmd,new_line='\n',timeout=5):#this function executes any command and returns the output
+ def execute(self,cmd,new_line='\n',timeout=5,more_timeout=2):#this function executes any command and returns the output
+    if cmd.strip()!='':
      self.telnet.write("{} {}".format(cmd.strip(),new_line).encode('utf-8'))#send the command
      c=self.telnet.read_until(self.prompt_end,timeout=timeout)#read data until it receive the end of the prompt after executing the command
+     if "---- More ----" in c:
+         while True:
+             self.telnet.write("\n".format(cmd.strip(),new_line).encode('utf-8'))
+             o=self.telnet.read_until(b"---- More ----",timeout=more_timeout)
+             c+=o
+             if self.prompt_end in c:
+                 break
      c=str(c)
      c=c.replace("b'",'')
      c=c.replace("'",'')

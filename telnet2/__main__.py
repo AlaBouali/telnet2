@@ -79,8 +79,10 @@ try:
  if shell==True:
   while True:
       cmd=input(t.prompt)
-      print(t.execute(cmd,timeout=command_timeout,new_line=new_line))
+      output=t.execute(cmd,timeout=command_timeout,new_line=new_line)
+      if output==None:
+        output=''
+      print(output)
  t.close()
- 
 except Exception as e:
      print("[-]Error: "+str(e))
