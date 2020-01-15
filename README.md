@@ -3,16 +3,16 @@ This is an easy to use telnet module to interact with a remote system smoothly o
 
 # Install :
 
-pip install telnetlib2
+pip install telnet2
 
 or
 
-pip3 install telnetlib2
+pip3 install telnet2
 
 # Usage :
 
-import telnetlib2
-<br>t=telnetlib.telnet()
+import telnet2
+<br>t=telnet2.telnet()
 <br>ip='192.168.0.32'#just an example
 <br>t.login(ip, username='root',password='toor',p=23,timeout=5)
 <br>output1=t.execute('echo ala_is_king')
