@@ -1,4 +1,4 @@
-# telnetlib2
+# telnet2
 This is an easy to use telnet module to interact with a remote system smoothly over this protocol!
 
 # Install :
