@@ -72,8 +72,8 @@ class telnet:
      c=c.replace('b"','')
      c=c.replace('"','')
      c=c.strip()
-     c=c.replace(cmd,'')#remove the command sent from output
-     c=c.replace(self.prompt,'')#remove the prompt from output
+     c=c.split(cmd)[1]#remove the command sent from output
+     c="\r\n".join(c.split('\r\n')[:-1])#remove the prompt from output
      self.logs.update({cmd.strip():c.strip()})#save the input and output into dict as logs
      return c.strip()
  def close(self):
