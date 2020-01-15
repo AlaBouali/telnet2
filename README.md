@@ -7,7 +7,7 @@ pip install telnetlib2
 
 or
 
-pip3 install telnet
+pip3 install telnetlib2
 
 # Usage :
 
