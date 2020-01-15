@@ -29,7 +29,7 @@ class telnet:
       c=c.replace('b"','')
       c=c.replace('"','')
       c=c.strip()
-      if ((c[-1:]=='$') or (c[-1:]=='#') or (c[-1:]=='>')):#in case this is unauthenticated server
+      if ((c[-1:]=='$') or (c[-1:]=='#') or (c[-1:]=='%') or (c[-1:]=='>')):#in case this is unauthenticated server
        self.prompt=c.strip()
        if (c[-1:]=='$'):
            self.prompt_end=b'$'
@@ -37,6 +37,8 @@ class telnet:
            self.prompt_end=b'>'
        if (c[-1:]=='#'):
            self.prompt_end=b'#'
+       if (c[-1:]=='%'):
+           self.prompt_end=b'%'
        return None
       break
    while True:
@@ -46,9 +48,9 @@ class telnet:
       c=c.replace('b"','')
       c=c.replace('"','')
       c=c.strip()
-      if (('denied' in c) or ('enter>' in c) or ('%' in c) or ('bad' in c) or ("incorrect" in c) or ('failed' in c) or ('wrong' in c) or ('invalid' in c) or ('name:' in c) or ('login:' in c) or ('user:' in c) or ('password:' in c) or  ('pass:' in c)):
+      if (('denied' in c) or ('enter>' in c) or ('bad' in c) or ("incorrect" in c) or ('failed' in c) or ('wrong' in c) or ('invalid' in c) or ('name:' in c) or ('login:' in c) or ('user:' in c) or ('password:' in c) or  ('pass:' in c)):
           raise Exception("Authentication Failed")#if login failed
-      if ((c[-1:]=='$') or (c[-1:]=='#') or (c[-1:]=='>')):#if a prompt was received
+      if ((c[-1:]=='$') or (c[-1:]=='#') or (c[-1:]=='%') or (c[-1:]=='>')):#if a prompt was received
        self.prompt=c.strip()#we set the prompt and then next we set the end of the prompt
        if (c[-1:]=='$'):
            self.prompt_end=b'$'
@@ -56,6 +58,8 @@ class telnet:
            self.prompt_end=b'>'
        if (c[-1:]=='#'):
            self.prompt_end=b'#'
+       if (c[-1:]=='%'):
+           self.prompt_end=b'%'
        return None
   except socket.timeout:
    raise Exception("Timed out")
