@@ -30,7 +30,7 @@ options:
 
 example:
 
-telnetlib2 --host 127.0.0.1 --username root --password root --add-command "echo ala" --add-command "dir"
+telnet2 --host 127.0.0.1 --username root --password root --add-command "echo ala" --add-command "dir"
 
 """
 i=0
