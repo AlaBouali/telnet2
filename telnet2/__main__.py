@@ -1,7 +1,7 @@
 import sys
 if  sys.version_info < (3,0):
     input=raw_input
-from __init__ import *
+from telnet2.__init__ import *
 c=sys.argv
 user=""
 pwd=""
