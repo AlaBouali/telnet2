@@ -14,7 +14,7 @@ new_line="\n"
 shell=False
 usage="""
 
-usage: telnetlib2 options
+usage: telnet2 options
 
 options:
 
