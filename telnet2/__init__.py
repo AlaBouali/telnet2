@@ -5,7 +5,7 @@ class telnet:
   self.prompt_end=b''
   self.telnet=None
   self.logs={}#where we save input and output logs
- def login(self,u,username=None,password=None,p=23,timeout=3):
+ def login(self,u,username=None,password=None,new_line='\n',p=23,timeout=3):
   try:
    usr=False
    pwd=False
@@ -16,10 +16,10 @@ class telnet:
     if (('name:' in str(s).lower()) or ('login:' in str(s).lower()) or ('user:' in str(s).lower())):#in case it asked for username
      if usr==True:
         raise Exception("Authentication Failed")#so we don't tricked into sending username multiple times after failure
-     self.telnet.write("{}\n".format(username).encode('utf-8'))#send username
+     self.telnet.write("{}{}".format(username,new_line).encode('utf-8'))#send username
      usr=True
     elif (("password:" in str(s).lower()) or ("pass:" in str(s).lower())):#in case it asked for password
-     self.telnet.write("{}\n".format(password).encode('utf-8'))#send password
+     self.telnet.write("{}{}".format(password,new_line).encode('utf-8'))#send password
      pwd=True
      break
     else:
@@ -65,16 +65,16 @@ class telnet:
    raise Exception("Timed out")
  def execute(self,cmd,new_line='\n',timeout=5,more_timeout=2):#this function executes any command and returns the output
     if cmd.strip()!='':
-     self.telnet.write("{} {}".format(cmd.strip(),new_line).encode('utf-8'))#send the command
+     self.telnet.write("{}{}".format(cmd.strip(),new_line).encode('utf-8'))#send the command
      c=self.telnet.read_until(self.prompt_end,timeout=timeout)#read data until it receive the end of the prompt after executing the command
-     if "---- More ----" in c:
+     if "---- More ----" in c.decode():
          while True:
              self.telnet.write("\n".format(cmd.strip(),new_line).encode('utf-8'))
              o=self.telnet.read_until(b"---- More ----",timeout=more_timeout)
              c+=o
              if self.prompt_end in c:
                  break
-     c=str(c)
+     c=c.decode()
      c=c.replace("b'",'')
      c=c.replace("'",'')
      c=c.replace('b"','')
